@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Number Generator</title>
+
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a5acd, #00bfff);
+      color: white;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 15px;
+      width: 350px;
+      margin: auto;
+      backdrop-filter: blur(10px);
+      animation: popIn 0.8s ease;
+    }
+
+    input {
+      width: 80px;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #ffdd57;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ffe680;
+    }
+
+    #dice {
+      font-size: 60px;
+      margin-top: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    #result {
+      font-size: 32px;
+      margin-top: 20px;
+      font-weight: bold;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎲 Random Number Generator</h1>
+
+  <div class="container">
+    <label>Min:
+      <input type="number" id="min" value="1">
+    </label>
+    <br><br>
+    <label>Max:
+      <input type="number" id="max" value="100">
+    </label>
+    <br><br>
+
+    <button onclick="generateRandom()">Roll 🎲</button>
+
+    <div id="dice">🎲</div>
+    <div id="result">Your number will appear here</div>
+  </div>
+
+  <script>
+    function generateRandom() {
+      const min = parseInt(document.getElementById("min").value, 10);
+      const max = parseInt(document.getElementById("max").value, 10);
+
+      if (isNaN(min) || isNaN(max) || min > max) {
+        document.getElementById("result").textContent = "Enter a valid range.";
+        return;
+      }
+
+      // Dice spin animation
+      const dice = document.getElementById("dice");
+      dice.style.animation = "none";
+      void dice.offsetWidth; 
+      dice.style.animation = "bounce 0.4s ease";
+
+      const random = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      document.getElementById("result").textContent = "🎉 " + random + " 🎉";
+    }
+  </script>
+
+</body>
+<!-- FUN FACT + TRAMPOLINE WIDGET -->
+<div class="side-panel">
+  
+  <!-- Fun Fact Box -->
+  <div class="fact-box">
+    <h2>🧠 Fun Fact</h2>
+    <p id="fact-text">Click Roll to get a fun fact!</p>
+  </div>
+
+  <!-- Trampoline -->
+  <div class="trampoline-container">
+    <div id="trampoline" onclick="bounceTrampoline()">🧍‍♂️</div>
+    <p id="click-count">Clicks today: 0</p>
+  </div>
+
+</div>
+
+<style>
+  .side-panel {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+  }
+
+  .fact-box {
+    background: rgba(255,255,255,0.2);
+    padding: 20px;
+    width: 260px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    text-align: center;
+    animation: fadeIn 1s ease;
+  }
+
+  .trampoline-container {
+    text-align: center;
+  }
+
+  #trampoline {
+    font-size: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  #trampoline.bounce {
+    transform: translateY(-20px);
+  }
+
+  #click-count {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+<!-- AUDIO PLAYER -->
+<audio id="my-audio" src="music/Morning Mood.mp3"></audio>
+
+<!-- MUSIC BUTTON -->
+<button onclick="toggleMusic()">🎵 Music</button>
+<script>
+  /* ---------------- FUN FACTS ---------------- */
+const facts = [
+  "Honey never spoils — archaeologists found 3000-year-old honey still edible.🍯🍴⏳",
+  "Octopuses have three hearts.🐙❤❤❤",
+  "Bananas are berries, but strawberries aren’t.🍌🍓",
+  "A day on Venus is longer than a year on Venus.⌚🪐",
+  "Butterflies taste with their feet.🦋🐾",
+  "There are more stars in the universe than grains of sand on Earth.🌟⌛",
+  "We share 70% of our DNA with Bananas! 🍌🧬",
+  "Sharks existed before trees.🦈🌳",
+  "Cows have best friends and get stressed when separated.🐄💛",
+  "A group of flamingos is called a flamboyance.🦩✨",
+  "Wombat poop is cube-shaped.🟫🧱",
+  "Sea otters hold hands while sleeping so they don’t drift apart.🦦🤝",
+  "Sloths can hold their breath longer than dolphins.🦥🌊",
+  "A cloud can weigh over a million pounds.☁️⚖️",
+  "Koalas sleep up to 22 hours a day.🐨💤",
+  "The Eiffel Tower can grow 6 inches taller in summer.🗼🌞",
+  "Cats can’t taste sweetness.🐱🍬🚫",
+  "A snail can sleep for three years.🐌😴",
+  "Jellyfish have existed for over 500 million years.🌊✨",
+  "A group of crows is called a murder.🐦🗡️",
+  "Your nose can remember 50,000 different scents.👃🌸",
+  "Horses can’t vomit.🐴🚫🤢",
+  "The heart of a blue whale is the size of a small car.🐋🚗",
+  "Penguins propose with pebbles.🐧💍",
+  "A shrimp’s heart is in its head.🦐❤️",
+  "Some frogs can freeze solid and still survive.🐸❄️",
+  "The shortest war in history lasted 38 minutes.⚔️⏱️",
+  "A group of porcupines is called a prickle.🦔✨",
+  "Humans share 60% of their DNA with chickens.🐔🧬",
+  "The moon has moonquakes.🌕🌍",
+  "A crocodile cannot stick its tongue out.🐊👅🚫",
+  "There’s a jellyfish that can technically live forever.🌊♾️",
+  "Bees can recognize human faces.🐝🙂",
+  "A day on Mercury is 59 Earth days long.🪐⏳",
+  "The longest hiccuping spree lasted 68 years.😮‍💨📅",
+  "Some cats are allergic to humans.🐱🤧",
+  "A group of owls is called a parliament.🦉📜",
+  "The human stomach gets a new lining every few days.🫀🔄",
+  "A giraffe’s tongue is about 45 cm long.🦒👅",
+  "Hot water freezes faster than cold water — the Mpemba effect.❄️🔥",
+  "Cheetahs can’t roar — they meow.🐆😺",
+  "The first oranges weren’t orange — they were green.🍊🟩",
+  "A hummingbird’s heart beats over 1,200 times per minute.🐦❤️",
+  "There are more fake flamingos in the world than real ones.🦩🎀",
+  "The longest recorded flight of a chicken is 13 seconds.🐔✈️",
+  "Humans are the only animals that blush.😊❤️",
+  "A blue whale’s veins are big enough for a human to swim through.🐋🫀",
+  "The inventor of the frisbee was turned into a frisbee after he died.🥏⚰️",
+  "Cows produce more milk when listening to music.🐄🎵",
+  "The first computer bug was an actual moth.💻🦋",
+  "Squirrels plant thousands of trees by forgetting where they buried nuts.🐿️🌳",
+  "A group of jellyfish is called a smack.🌊👋"
+];
+
+facts.length = 54
+
+  function showFunFact() {
+    const randomFact = facts[Math.floor(Math.random() * facts.length)];
+    document.getElementById("fact-text").textContent = randomFact;
+  }
+
+  /* ---------------- TRAMPOLINE ---------------- */
+  function loadClickCount() {
+    const today = new Date().toDateString();
+    const savedDate = localStorage.getItem("trampolineDate");
+    let count = 0;
+
+    if (savedDate === today) {
+      count = parseInt(localStorage.getItem("trampolineClicks") || "0");
+    } else {
+      localStorage.setItem("trampolineDate", today);
+      localStorage.setItem("trampolineClicks", "0");
+    }
+
+    document.getElementById("click-count").textContent = "Clicks today: " + count;
+  }
+
+  function bounceTrampoline() {
+    const tramp = document.getElementById("trampoline");
+
+    tramp.classList.add("bounce");
+    setTimeout(() => tramp.classList.remove("bounce"), 200);
+
+    const today = new Date().toDateString();
+    localStorage.setItem("trampolineDate", today);
+
+    let count = parseInt(localStorage.getItem("trampolineClicks") || "0");
+    count++;
+    localStorage.setItem("trampolineClicks", count);
+
+    document.getElementById("click-count").textContent = "Clicks today: " + count;
+  }
+
+  loadClickCount();
+
+</script>
+<script>
+  function toggleMusic() {
+    const audio = document.getElementById("my-audio");
+
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+</script>
+</html>
